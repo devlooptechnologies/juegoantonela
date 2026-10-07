@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Baloo 2";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 800;
+  src: url("/fonts/baloo2-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 1000;
+  src: url("/fonts/nunito-latin.woff2") format("woff2");
+}
+
 @theme {
-  --font-display: var(--font-display-var, "Baloo 2"), "Nunito", ui-rounded, system-ui, sans-serif;
-  --font-body: var(--font-body-var, "Nunito"), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Baloo 2", "Nunito", ui-rounded, system-ui, sans-serif;
+  --font-body: "Nunito", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
