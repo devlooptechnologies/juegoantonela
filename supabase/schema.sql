@@ -39,6 +39,10 @@ create table if not exists public.players (
   constraint players_game_name_unique unique (game_id, name)
 );
 
+-- case-insensitive uniqueness (Alice vs alice) enforced at the DB too
+create unique index if not exists players_game_name_ci_idx
+  on public.players (game_id, lower(name));
+
 create index if not exists players_game_idx on public.players (game_id);
 
 -- -------------------------------------------------------------
@@ -70,3 +74,10 @@ create index if not exists answers_game_idx on public.answers (game_id);
 alter publication supabase_realtime add table public.games;
 alter publication supabase_realtime add table public.players;
 alter publication supabase_realtime add table public.answers;
+
+-- -------------------------------------------------------------
+-- Permissions for the anon key (used directly by this app).
+-- Kept explicit so it works even on brand-new Supabase projects.
+-- -------------------------------------------------------------
+grant usage on schema public to anon;
+grant select, insert, update on all tables in schema public to anon;

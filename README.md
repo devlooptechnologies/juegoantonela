@@ -61,6 +61,19 @@ GAME_HOST_PIN=gmhost27
 
 > Changing mode at runtime: the app reads the env at boot, so restart the server after editing `.env.local`.
 
+### Deploying to Vercel
+
+The built-in server mode relies on a local filesystem store, which does **not** work on Vercel (read-only, ephemeral serverless filesystems). To run on Vercel you must use Mode B:
+
+1. Create the Supabase project and run [`supabase/schema.sql`](supabase/schema.sql) (SQL Editor).
+2. In the Vercel dashboard open the project → **Settings → Environment Variables** and add (all scopes — Production/Preview/Development):
+
+   - `NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...`
+   - (optional) `GAME_HOST_PIN=gmhost27`
+
+3. Redeploy (`git push`, or Deployments → Redeploy). The app auto-detects Supabase and the two `/api/game*` endpoints stop being used (no filesystem writes, live updates via Supabase Realtime).
+
 ---
 
 ## Game rules implemented
