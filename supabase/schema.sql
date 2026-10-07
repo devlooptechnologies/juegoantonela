@@ -79,5 +79,11 @@ alter publication supabase_realtime add table public.answers;
 -- Permissions for the anon key (used directly by this app).
 -- Kept explicit so it works even on brand-new Supabase projects.
 -- -------------------------------------------------------------
+alter table public.games disable row level security;
+alter table public.players disable row level security;
+alter table public.answers disable row level security;
+
 grant usage on schema public to anon;
-grant select, insert, update on all tables in schema public to anon;
+grant select, insert, update on public.games to anon;
+grant select, insert, update on public.players to anon;
+grant select, insert, update on public.answers to anon;
